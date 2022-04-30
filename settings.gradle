@@ -1,0 +1,5 @@
+rootProject.name = '3Services'
+include 'TimeService'
+include 'OrderService'
+include 'ui'
+

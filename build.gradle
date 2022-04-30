@@ -1,0 +1,15 @@
+plugins {
+}
+
+group 'ru.goryachev'
+version '1.0'
+
+ext {
+    springBootVersion = '2.5.5'
+    hibernateVersion = '5.5.0.Final'
+    postgreSqlDriverVersion = '42.2.18'
+    springFoxVersion = '3.0.0'
+}
+
+dependencies {
+}
