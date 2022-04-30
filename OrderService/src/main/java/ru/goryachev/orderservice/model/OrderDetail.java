@@ -1,5 +1,6 @@
 package ru.goryachev.orderservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ru.goryachev.orderservice.model.compositekey.OrderDetailsCompositeKey;
 
 import javax.persistence.*;
@@ -30,6 +31,11 @@ public class OrderDetail {
     @Id
     @Column(name = "order_id")
     private Long orderId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false, insertable = false, updatable = false)
+    @JsonBackReference
+    private Order order;
 
     public Long getItemNumber() {
         return itemNumber;
@@ -69,6 +75,14 @@ public class OrderDetail {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
 

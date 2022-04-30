@@ -1,5 +1,7 @@
 package ru.goryachev.orderservice.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,7 +14,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +33,9 @@ public class Order {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<OrderDetail> orderDetail;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private List<OrderDetail> orderDetails;
 
     public Long getId() {
         return id;
@@ -74,12 +77,12 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public List<OrderDetail> getOrderDetail() {
-        return orderDetail;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setOrderDetail(List<OrderDetail> orderDetail) {
-        this.orderDetail = orderDetail;
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }
 

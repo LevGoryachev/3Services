@@ -12,14 +12,14 @@ public class OrderDetailsCompositeKey implements Serializable {
 
     private Long itemNumber;
 
-    private Long order;
+    private Long orderId;
 
     public OrderDetailsCompositeKey() {
     }
 
     public OrderDetailsCompositeKey(Long itemNumber, Long orderId) {
         this.itemNumber = itemNumber;
-        this.order = orderId;
+        this.orderId = orderId;
     }
 
     public Long getItemNumber() {
@@ -30,11 +30,11 @@ public class OrderDetailsCompositeKey implements Serializable {
         this.itemNumber = itemNumber;
     }
 
-    public Long getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Long order) {
-        this.order = order;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }
