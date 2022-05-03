@@ -32,14 +32,14 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Order> getById (@PathVariable Long id) {
-            return new ResponseEntity<>(orderService.getById(id), HttpStatus.OK);
+    @GetMapping("{orderId}")
+    public ResponseEntity<Order> getById (@PathVariable Long orderId) {
+            return new ResponseEntity<>(orderService.getById(orderId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Object> create (@RequestBody Order answer) {
-        return new ResponseEntity<>(orderService.save(answer), HttpStatus.CREATED);
+    public ResponseEntity<Object> create (@RequestBody Order order) {
+        return new ResponseEntity<>(orderService.save(order), HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -47,8 +47,8 @@ public class OrderController {
         return new ResponseEntity<>(orderService.save(modifiedOrder), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Object> delete (@PathVariable Long id) {
-        return new ResponseEntity<>(orderService.delete(id), HttpStatus.OK);
+    @DeleteMapping("{orderId}")
+    public ResponseEntity<Object> delete (@PathVariable Long orderId) {
+        return new ResponseEntity<>(orderService.delete(orderId), HttpStatus.OK);
     }
 }

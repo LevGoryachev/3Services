@@ -1,11 +1,14 @@
 package ru.goryachev.orderservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Модель сущности "Заказ"
@@ -31,11 +34,22 @@ public class Order {
     private BigDecimal summ;
 
     @Column(name = "created_date")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, fetch = FetchType.LAZY/*, orphanRemoval = true*/)
     @JsonManagedReference
-    private List<OrderDetail> orderDetails;
+    private Set<OrderDetail> orderDetails;
+
+    public void addOrderDetail(OrderDetail orderDetail) {
+        orderDetails.add(orderDetail);
+        orderDetail.setOrder(this);
+    }
+
+    public void removeOrderDetail(OrderDetail orderDetail) {
+        orderDetails.remove(orderDetail);
+        orderDetail.setOrder(null);
+    }
 
     public Long getId() {
         return id;
@@ -77,11 +91,11 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public List<OrderDetail> getOrderDetails() {
+    public Set<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

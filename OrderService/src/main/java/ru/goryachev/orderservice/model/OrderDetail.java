@@ -1,6 +1,9 @@
 package ru.goryachev.orderservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import ru.goryachev.orderservice.model.compositekey.OrderDetailsCompositeKey;
 
 import javax.persistence.*;
@@ -30,8 +33,10 @@ public class OrderDetail {
 
     @Id
     @Column(name = "order_id")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long orderId;
 
+    @ApiModelProperty(required = false, hidden = true)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false, insertable = false, updatable = false)
     @JsonBackReference
