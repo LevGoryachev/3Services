@@ -2,6 +2,7 @@ package ru.goryachev.ui.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,10 +21,8 @@ public class Order {
 
     private BigDecimal summ;
 
-    //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdDate;
 
-    //@JsonManagedReference
     private Set<OrderDetail> orderDetails;
 
     public Long getId() {
@@ -72,6 +71,36 @@ public class Order {
 
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return Objects.equals(getId(), order.getId()) &&
+                Objects.equals(getCustomerName(), order.getCustomerName()) &&
+                Objects.equals(getAddress(), order.getAddress()) &&
+                Objects.equals(getSumm(), order.getSumm()) &&
+                Objects.equals(getCreatedDate(), order.getCreatedDate()) &&
+                Objects.equals(getOrderDetails(), order.getOrderDetails());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCustomerName(), getAddress(), getSumm(), getCreatedDate(), getOrderDetails());
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customerName='" + customerName + '\'' +
+                ", address='" + address + '\'' +
+                ", summ=" + summ +
+                ", createdDate=" + createdDate +
+                ", orderDetails=" + orderDetails +
+                '}';
     }
 }
 

@@ -26,7 +26,7 @@ public class TimeController {
     }
 
     @GetMapping
-    public ResponseEntity<LocalDateTime> getAll () {
+    public ResponseEntity<LocalDateTime> getTime () {
         return new ResponseEntity<>(timeService.getCurrenTime(), HttpStatus.OK);
     }
 }

@@ -2,28 +2,29 @@ a {
     color: darkgreen;
 }
 
-p {
-    color: darkgreen;
-}
-
 .cblock{
-    margin: auto; text-align: center;
+    margin: auto;
+    text-align: center;
 }
 
 h2{
-    color: red;
+    color: darkgreen;
 }
 
+h3 {
+    color: rebeccapurple;
+}
 
 .subitem{
     background-color: #78a2b7;
 }
 
 .main {
+    display: flex;
     min-width: 520px;
     max-width: 800px;
     padding: 0px;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     text-align: center;
 }
 
@@ -80,6 +81,10 @@ tr td:last-child {
     border-right: none;
 }
 
+
+.rollblock{
+    display: none;
+}
 
 
 

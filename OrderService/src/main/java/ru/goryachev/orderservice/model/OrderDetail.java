@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import ru.goryachev.orderservice.model.compositekey.OrderDetailsCompositeKey;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Модель сущности "Детали заказа"
@@ -88,6 +89,36 @@ public class OrderDetail {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderDetail)) return false;
+        OrderDetail that = (OrderDetail) o;
+        return Objects.equals(getItemNumber(), that.getItemNumber()) &&
+                Objects.equals(getSerialNumber(), that.getSerialNumber()) &&
+                Objects.equals(getProductName(), that.getProductName()) &&
+                Objects.equals(getQty(), that.getQty()) &&
+                Objects.equals(getOrderId(), that.getOrderId()) &&
+                Objects.equals(getOrder(), that.getOrder());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getItemNumber(), getSerialNumber(), getProductName(), getQty(), getOrderId(), getOrder());
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "itemNumber=" + itemNumber +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", productName='" + productName + '\'' +
+                ", qty=" + qty +
+                ", orderId=" + orderId +
+                ", order=" + order +
+                '}';
     }
 }
 

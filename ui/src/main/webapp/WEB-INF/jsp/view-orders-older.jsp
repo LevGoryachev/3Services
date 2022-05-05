@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,9 +10,8 @@
 <body>
 
 <div class="cblock">
-    <h2>Welcome to Order Service Web Interface</h2>
-    <h3>Receiving time (from TimeService): </h3>
-    <h2>${receivedTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}</h2>
+    <h2>Welcome to Order Service Ui</h2>
+    <p>Current Time: </p>
 </div>
 
 <div class="main">
@@ -36,10 +34,13 @@
             <td>${orders.customerName}</td>
             <td>${orders.address}</td>
             <td>${orders.summ}</td>
-            <td>${orders.createdDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}</td>
+            <td>${orders.createdDate}</td>
             <td>
                 <div class="tabs">
+                    <input id="tab2" type="checkbox">
+                    <label for="tab2">Посмотреть/свернуть</label>
 
+                    <section id="content-tab2">
                         <table border="1" cellpadding="5" cellspacing="0">
                             <thead>
                             <tr>
@@ -58,9 +59,8 @@
                                 </tr>
                             </c:forEach>
                         </table>
+                    </section>
                 </div>
-                <button id="showContent">Показать/Скрыть</button>
-                <div id=${orders.id} style="display:none;">Text Some Text Some</div>
             </td>
         </tr>
     </c:forEach>
@@ -69,7 +69,20 @@
 </div>
 
 
+<div class="tabs">
+    <input id="tab1" type="checkbox">
+    <label for="tab1">Свернуть/развернуть</label>
 
+    <section id="content-tab1">
+        <table border="1" cellpadding="5" cellspacing="0">
+            <tr><td>Ячейка1</td><td>Ячейка2</td><td>Ячейка3</td><td>Ячейка4</td><td>Ячейка5</td></tr>
+            <tr><td>Ячейка1</td><td>Ячейка2</td><td>Ячейка3</td><td>Ячейка4</td><td>Ячейка5</td></tr>
+            <tr><td>Ячейка1</td><td>Ячейка2</td><td>Ячейка3</td><td>Ячейка4</td><td>Ячейка5</td></tr>
+            <tr><td>Ячейка1</td><td>Ячейка2</td><td>Ячейка3</td><td>Ячейка4</td><td>Ячейка5</td></tr>
+            <tr><td>Ячейка1</td><td>Ячейка2</td><td>Ячейка3</td><td>Ячейка4</td><td>Ячейка5</td></tr>
+        </table>
+    </section>
+</div>
 
 
 <div>

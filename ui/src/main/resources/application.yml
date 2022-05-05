@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: UI
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+urlscheme:
+  3services:
+    orderservice:
+      domain: http://localhost:8080/OrderService/
+      apiversion: api/
+      subdomain:
+        orders: orders/
+
+    timeservice:
+      domain: http://localhost:8080/TimeService/
+      apiversion: api/
+      subdomain:
+        time: time/
