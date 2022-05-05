@@ -100,13 +100,12 @@ public class OrderDetail {
                 Objects.equals(getSerialNumber(), that.getSerialNumber()) &&
                 Objects.equals(getProductName(), that.getProductName()) &&
                 Objects.equals(getQty(), that.getQty()) &&
-                Objects.equals(getOrderId(), that.getOrderId()) &&
-                Objects.equals(getOrder(), that.getOrder());
+                Objects.equals(getOrderId(), that.getOrderId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemNumber(), getSerialNumber(), getProductName(), getQty(), getOrderId(), getOrder());
+        return Objects.hash(getItemNumber(), getSerialNumber(), getProductName(), getQty(), getOrderId());
     }
 
     @Override
@@ -117,7 +116,6 @@ public class OrderDetail {
                 ", productName='" + productName + '\'' +
                 ", qty=" + qty +
                 ", orderId=" + orderId +
-                ", order=" + order +
                 '}';
     }
 }

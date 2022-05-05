@@ -35,10 +35,12 @@ PRIMARY KEY (item_number, order_id)<br>
 );<br>
 </p>
 <p>файл структуры: OrderService\src\main\resources\db.migration\V1_0__OrderService_DDL.sql</p>
+<p>файл с тестовыми данными: OrderService\src\main\resources\db.migration\testData.sql</p>
 <p>При создании структуры другим способом проверить имя БД на соответствие "orderservicedb", при необходимости изменить в application.properties (модуль OrderService) spring.datasource.url</p>
 </li>
 <li>Скопировать war-файлы (3шт OrderService.war, TimeService.war, ui-1.0.war) в работающий Tomcat (в папку \apache-tomcat\webapps) 
-Готовые сборки можно взять из релизов.
+Готовые сборки можно взять из релизов <a href="https://github.com/LevGoryachev/3Services/releases" target="_blank">(releases)</a>
+ 
 <p>При необходимости можно также собрать модули, используя GradleWrapper следующим образом:</p>
 <p>В консоли из папки проекта (3Services): <b>gradlew build</b> (соберутся все модули)</p>
 <p>По отдельности:</p>

@@ -82,13 +82,12 @@ public class Order {
                 Objects.equals(getCustomerName(), order.getCustomerName()) &&
                 Objects.equals(getAddress(), order.getAddress()) &&
                 Objects.equals(getSumm(), order.getSumm()) &&
-                Objects.equals(getCreatedDate(), order.getCreatedDate()) &&
-                Objects.equals(getOrderDetails(), order.getOrderDetails());
+                Objects.equals(getCreatedDate(), order.getCreatedDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCustomerName(), getAddress(), getSumm(), getCreatedDate(), getOrderDetails());
+        return Objects.hash(getId(), getCustomerName(), getAddress(), getSumm(), getCreatedDate());
     }
 
     @Override
@@ -99,7 +98,6 @@ public class Order {
                 ", address='" + address + '\'' +
                 ", summ=" + summ +
                 ", createdDate=" + createdDate +
-                ", orderDetails=" + orderDetails +
                 '}';
     }
 }
