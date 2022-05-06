@@ -30,8 +30,10 @@ public class UiController {
     @GetMapping
     public String viewOrders(Model model) {
         logger.info("UI Controller viewOrders() invocation (GET)");
-        model.addAttribute("orders", serviceAggregator.getOrders());
-        model.addAttribute("receivedTime", serviceAggregator.getDateTime());
+        /*model.addAttribute("orders", serviceAggregator.getOrders());
+        model.addAttribute("receivedTime", serviceAggregator.getDateTime());*/
+        model.addAttribute("orders", serviceAggregator.getOrdersMock());
+        model.addAttribute("receivedTime", serviceAggregator.getTimeMock());
         return "view-orders";
     }
 }
