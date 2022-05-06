@@ -46,7 +46,7 @@ PRIMARY KEY (item_number, order_id)<br>
 (в папку \apache-tomcat\webapps или через ui Tomcat). 
 Готовые сборки можно взять из релизов <a href="https://github.com/LevGoryachev/3Services/Releases" target="_blank">(Releases)</a>
  
-<p>При необходимости можно также собрать модули, используя GradleWrapper следующим образом:</p>
+<p>При необходимости можно также собрать модули (написаны отдельные build.gradle для каждого сервиса), используя GradleWrapper следующим образом:</p>
 <p>В консоли из папки проекта (3Services): <b>gradlew build</b> (соберутся все модули)</p>
 <p>По отдельности:</p>
 <p><b>gradlew build -p OrderService</b></p>
