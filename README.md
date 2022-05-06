@@ -2,19 +2,19 @@
 <p><b>TimeService</b> - WEB сервис, предоставляющий текущее время.</p>
 <p><b>OrderService</b> - API с логикой для работы с заказами (работает с PostgreSQL).</p>
 <p><b>UI</b> - WEB интерфейс (JSP), отображает заказы и их содержимое из OrderService,
- а также подгружает текущую дату/время из TimeService.</p>
+ а также подгружает текущую дату/время из TimeService по REST.</p>
 <p>Java 11, Spring-Boot, Spring Data JPA, Swagger, JSP, RestTemplate...</p>
 <p><b>Для развертывания:</b></p>
 
 <ul>
-<li><b>Java 11 версии</b></li>
+<li><b>Java 11< версии</b></li>
 <li><b>TomCat (тестил на версии 8.5)</b></li>
 <li><b>БД PostgreSQL (тестировалось на 13 вер.)</b></li>
 </ul>
 
 <p>Подготовка к работе сервисов (например на localhost):</p>
 <ul>
-<li>Создать структуру таблиц в БД, скопировав в psql консоль:
+<li><b>Создать структуру таблиц в БД</b>, скопировав в psql консоль:
 <p>
 CREATE DATABASE orderservicedb;<br>
 \c orderservicedb<br>
@@ -34,12 +34,17 @@ order_id BIGINT REFERENCES "orders"(order_id) ON DELETE CASCADE,<br>
 PRIMARY KEY (item_number, order_id)<br>
 );<br>
 </p>
-<p>файл структуры: OrderService\src\main\resources\db.migration\V1_0__OrderService_DDL.sql</p>
-<p>файл с тестовыми данными: OrderService\src\main\resources\db.migration\testData.sql</p>
-<p>При создании структуры другим способом проверить имя БД на соответствие "orderservicedb", при необходимости изменить в application.properties (модуль OrderService) spring.datasource.url</p>
+<p>файл структуры: OrderService\src\main\resources\db.migration\V1_0__OrderService_DDL.sql<br>
+и файл с тестовыми данными: OrderService\src\main\resources\db.migration\testData.sql</p>
+<p>также имеются в <a href="https://github.com/LevGoryachev/3Services/releases" target="_blank">(Releases)</a></p>
+<p>При создании структуры другим способом проверить
+имя БД на соответствие "orderservicedb",
+при необходимости изменить в application.properties (модуль OrderService) spring.datasource.url
+или spring datasource переменные (url, user, password)</p>
 </li>
-<li>Скопировать war-файлы (3шт OrderService.war, TimeService.war, ui-1.0.war) в работающий Tomcat (в папку \apache-tomcat\webapps) 
-Готовые сборки можно взять из релизов <a href="https://github.com/LevGoryachev/3Services/releases" target="_blank">(releases)</a>
+<li><b>Развернуть вебсервисы:</b> скопировать war-файлы (3шт OrderService.war, TimeService.war, ui-1.0.war) в работающий Tomcat
+(в папку \apache-tomcat\webapps или через ui Tomcat). 
+Готовые сборки можно взять из релизов <a href="https://github.com/LevGoryachev/3Services/Releases" target="_blank">(Releases)</a>
  
 <p>При необходимости можно также собрать модули, используя GradleWrapper следующим образом:</p>
 <p>В консоли из папки проекта (3Services): <b>gradlew build</b> (соберутся все модули)</p>

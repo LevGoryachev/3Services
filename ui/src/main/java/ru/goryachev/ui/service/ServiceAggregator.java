@@ -40,10 +40,12 @@ public class ServiceAggregator {
     }
 
     public List<Order> getOrders(){
+        logger.info("ServiceAggregator getOrders() invocation");
         return connectorToOrderService.getAll(subDomainOrders);
     }
 
     public LocalDateTime getDateTime(){
+        logger.info("ServiceAggregator getDateTime() invocation");
         return connectorToTimeService.getDateTime(subDomainTime);
     }
 }

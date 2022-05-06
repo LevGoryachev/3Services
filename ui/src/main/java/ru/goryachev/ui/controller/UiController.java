@@ -1,5 +1,7 @@
 package ru.goryachev.ui.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import ru.goryachev.ui.service.ServiceAggregator;
 public class UiController {
 
     private ServiceAggregator serviceAggregator;
+    private static final Logger logger = LoggerFactory.getLogger(UiController.class);
 
     @Autowired
     public UiController(ServiceAggregator serviceAggregator) {
@@ -25,7 +28,8 @@ public class UiController {
     }
 
     @GetMapping
-    public String viewBooks(Model model) {
+    public String viewOrders(Model model) {
+        logger.info("UI Controller viewOrders() invocation (GET)");
         model.addAttribute("orders", serviceAggregator.getOrders());
         model.addAttribute("receivedTime", serviceAggregator.getDateTime());
         return "view-orders";
