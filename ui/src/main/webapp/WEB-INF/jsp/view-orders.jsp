@@ -67,29 +67,5 @@
     </tbody>
 </table>
 </div>
-
-
-
-
-
-<div>
-    <c:forEach items="${books}" var="books">
-    <div>
-        <div class="lineblock">${books.id}</div>
-        <div class="lineblock">${books.name}</div>
-        <div class="lineblock">${books.author}</div>
-
-    </div>
-
-        <div class="subitem">
-            <c:forEach items="${books.sheets}" var="language">
-                <div class="lineblock"><c:out value="${language.id}" /></div>
-                <div class="lineblock"><c:out value="${language.code}" /></div>
-                <div class="lineblock"><c:out value="${language.date}" /></div>
-            </c:forEach>
-        </div>
-    </c:forEach>
-</div>
-
 </body>
 </html>
