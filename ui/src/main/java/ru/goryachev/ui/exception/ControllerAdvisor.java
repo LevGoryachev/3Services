@@ -21,7 +21,7 @@ import java.util.Map;
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({Exception.class})
-    public ResponseEntity<Object> handleS(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handle(Exception ex, WebRequest request) {
         Map<String, Object> responseBody = new LinkedHashMap<>();
         String h = ex.getCause().getMessage();
         String g = ex.getLocalizedMessage();
@@ -32,5 +32,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         responseBody.put("localized message: ", g);
         responseBody.put("message: ", m);
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MicroServiceNotAnswerException.class)
+    public ResponseEntity<Object> handleMicroServiceNotAnswerException(Exception ex, WebRequest request) {
+        Map<String, Object> responseBody = new LinkedHashMap<>();
+        responseBody.put("timestamp", LocalDateTime.now());
+        responseBody.put("message", ex.getMessage());
+        return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

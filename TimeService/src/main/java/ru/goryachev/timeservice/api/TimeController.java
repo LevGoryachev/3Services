@@ -1,5 +1,7 @@
 package ru.goryachev.timeservice.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 public class TimeController {
 
     private TimeService timeService;
+    private static final Logger logger = LoggerFactory.getLogger(TimeController.class);
 
     @Autowired
     public TimeController(TimeService timeService) {
@@ -27,6 +30,7 @@ public class TimeController {
 
     @GetMapping
     public ResponseEntity<LocalDateTime> getTime () {
+        logger.info("TimeController getTime() invocation (GET)");
         return new ResponseEntity<>(timeService.getCurrenTime(), HttpStatus.OK);
     }
 }
