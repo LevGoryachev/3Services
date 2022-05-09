@@ -3,7 +3,7 @@
 <p><b>OrderService</b> - API с логикой для работы с заказами (работает с PostgreSQL).</p>
 <p><b>UI</b> - WEB интерфейс (JSP), отображает заказы и их содержимое из OrderService,
  а также подгружает текущую дату/время из TimeService по REST.</p>
-<p>Java 11, Spring-Boot, Spring Data JPA, Swagger, JSP, RestTemplate...</p>
+<p>Java 11, Spring-Boot, Spring Data JPA, Sping Web Flux, Swagger, JSP...</p>
 <p><b>Для развертывания:</b></p>
 
 <ul>
@@ -66,8 +66,19 @@ PRIMARY KEY (item_number, order_id)<br>
 <li>model - классы сущностей Entity, классы композитных ключей</li>
 <li>repository - расширение интерфейсов JPA</li>
 <li>service - классы для логики</li>
-<li>exception - классы Advice контроллеров (отлавливают все исключения в контроллерах) и кастомные исключения</li>
+<li>exception - содержит кастомные исключения, а также Advice контроллеры (отлавливают все исключения)</li>
 </ul>
 
+<p>Описание работы веб-сервисов</p>
+<p>При get запросе на /orders (UiService) делает get запрос на сервис работы с заказами,
+ и в случае успеха делает второй запрос на сервис получения времени (TimeService).
+ Данные из ответов собираюся в HashMap и передаются в Model для вывода на страницу.</p>
+ <p>В случае, если TimeService не отвечает,
+ данные в Model всё же передаются и заказы отображаются без отметки "времени". 
+ В логах выводится предупреждение об отсутствии ответа.
+ <p>В случае, если OrderService не отвечает, в лог выводится сообщение, пробрасывается
+  MicroserviceNotAnswerException которое отлавливается Advice-контроллером(ControllerAdvisor)
+   в общем порядке и в тело ответа помещаюся сообщения.</p>
+   <p>Данное поведение можно проверить, поочередно отключая TimeService, OrderService</p>
 
 <p>Lev Goryachev 2022</p>

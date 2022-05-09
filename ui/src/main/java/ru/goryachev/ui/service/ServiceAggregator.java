@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import ru.goryachev.ui.model.Order;
+import ru.goryachev.ui.exception.MicroServiceNotAnswerException;
 import ru.goryachev.ui.webclient.ConnectorToOrderService;
 import ru.goryachev.ui.webclient.ConnectorToTimeService;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Сервис, который работает с API других сервисов Service that works with APIs
@@ -24,9 +24,9 @@ import java.util.List;
 @PropertySource("classpath:application.yml")
 public class ServiceAggregator {
 
-    @Value("${urlscheme.3services.orderservice.subdomain.orders}")
+    @Value("${connector.orderservice.urlscheme.subdomain.orders}")
     private String subDomainOrders;
-    @Value("${urlscheme.3services.timeservice.subdomain.time}")
+    @Value("${connector.timeservice.urlscheme.subdomain.time}")
     private String subDomainTime;
     private static final Logger logger = LoggerFactory.getLogger(ServiceAggregator.class);
 
@@ -39,13 +39,29 @@ public class ServiceAggregator {
         this.connectorToTimeService = connectorToTimeService;
     }
 
-    public List<Order> getOrders(){
-        logger.info("ServiceAggregator getOrders() invocation");
-        return connectorToOrderService.getAll(subDomainOrders);
-    }
+    public Map<String, Object> getAttributes (){
 
-    public LocalDateTime getDateTime(){
-        logger.info("ServiceAggregator getDateTime() invocation");
-        return connectorToTimeService.getDateTime(subDomainTime);
+        Map<String, Object> result = new HashMap<>();
+
+        try{
+            logger.info("connectorToOrderService.getAll invocation");
+            result.put("orderService", connectorToOrderService.getAll(subDomainOrders));
+        } catch (Exception e){
+            logger.warn("No response from OrderService");
+            e.printStackTrace();
+            throw new MicroServiceNotAnswerException("OrderService");
+        }
+
+        if(!result.isEmpty()) {
+            logger.info("connectorToTimeService.getAll invocation");
+            try {
+                result.put("timeService", connectorToTimeService.get(subDomainTime));
+            } catch (Exception e) {
+                logger.warn("No response from TimeService");
+                e.printStackTrace();
+            }
+        }
+
+        return result;
     }
 }

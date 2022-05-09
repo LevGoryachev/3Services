@@ -11,6 +11,7 @@ import ru.goryachev.ui.service.ServiceAggregator;
 
 /**
  * Веб-интерфейс Web-interface
+ * Исключения отлавливаются при помощи exception/ControllerAdvisor (RestControllerAdvice)
  * @author Lev Goryachev
  * @version 1
  */
@@ -30,8 +31,9 @@ public class UiController {
     @GetMapping
     public String viewOrders(Model model) {
         logger.info("UI Controller viewOrders() invocation (GET)");
-        model.addAttribute("orders", serviceAggregator.getOrders());
-        model.addAttribute("receivedTime", serviceAggregator.getDateTime());
+        model.addAttribute("attributes", serviceAggregator.getAttributes());
+        /*model.addAttribute("orders", serviceAggregator.getOrders());
+        model.addAttribute("receivedTime", serviceAggregator.getDateTime());*/
         return "view-orders";
     }
 }

@@ -6,16 +6,19 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
 
-urlscheme:
-  3services:
-    orderservice:
+connector:
+  orderservice:
+    urlscheme:
       domain: http://localhost:8080/OrderService/
       apiversion: api/
       subdomain:
         orders: orders/
+    timeouts: 30000
 
-    timeservice:
+  timeservice:
+    urlscheme:
       domain: http://localhost:8080/TimeService/
       apiversion: api/
       subdomain:
         time: time/
+    timeouts: 5000

@@ -15,8 +15,8 @@
             <h2>Welcome to Order Service Web Interface</h2>
             <h2>Добро пожаловать в веб интерфейс сервиса заказов!</h2>
             <h3>Receiving time (from TimeService): </h3>
-            <h3>Время загрузки дынных о заказах (из TimeService):</h3>
-            <h2>${receivedTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}</h2>
+            <h3>Время загрузки данных о заказах (из TimeService):</h3>
+            <h2>${attributes.timeService.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}</h2>
         </div>
         <div class="cblock">
         <table>
@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${orders}" var="orders">
+                <c:forEach items="${attributes.orderService}" var="orders">
                 <tr>
                     <td>${orders.id}</td>
                     <td>${orders.customerName}</td>
