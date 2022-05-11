@@ -9,7 +9,7 @@
 
 <p><b>Для развертывания:</b></p>
 <ul>
-<li><b>Собранные WAR архивы</b> <a href="https://github.com/LevGoryachev/3Services/Releases" target="_blank">(Releases)</a></li>
+<li><b>Собранные WAR архивы</b> <a href="https://github.com/LevGoryachev/3Services/releases" target="_blank">(releases)</a></li>
 <li><b>Java 11< версии</b></li>
 <li><b>TomCat (тестил на версии 8.5)</b></li>
 <li><b>БД PostgreSQL (тестировалось на 13 вер.)</b></li>
@@ -25,7 +25,10 @@
  и в случае успеха делает второй запрос на сервис получения времени (TimeService).
  Данные из ответов собираюся в HashMap и передаются в атрибуты модели (Model) для вывода на страницу.</p>
  <p>Страница просмотра заказов выглядит следующим образом:</p>
+ 
+ 
  ![UI_v1_only_get](https://user-images.githubusercontent.com/61917893/167751451-74556f33-95b4-48e1-aa15-3076968cb9f5.jpg)
+ 
  
  <p>В случае, если TimeService не отвечает,
  данные в Model всё же передаются и заказы отображаются без отметки "времени". 
@@ -74,7 +77,7 @@ PRIMARY KEY (item_number, order_id)<br>
 <p><b>2. Развернуть вебсервисы:</b></p>
 <p> скопировать war-файлы (3шт OrderService.war, TimeService.war, ui-1.0.war) в работающий Tomcat
 (в папку \apache-tomcat\webapps или через ui Tomcat). 
-Готовые сборки можно взять из релизов <a href="https://github.com/LevGoryachev/3Services/Releases" target="_blank">(Releases)</a>
+Готовые сборки можно взять из релизов <a href="https://github.com/LevGoryachev/3Services/releases" target="_blank">(releases)</a>
 </p> 
 <p>При необходимости можно также самому собрать модули (предусмотрены отдельные build.gradle
  для каждого сервиса), используя GradleWrapper следующим образом:</p>
