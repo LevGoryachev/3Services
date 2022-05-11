@@ -2,8 +2,8 @@ package ru.goryachev.ui.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Модель сущности "Заказ"
@@ -23,7 +23,7 @@ public class Order {
 
     private LocalDateTime createdDate;
 
-    private Set<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     public Long getId() {
         return id;
@@ -65,11 +65,11 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
+    public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 

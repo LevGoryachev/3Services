@@ -14,7 +14,6 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
 import ru.goryachev.ui.service.ServiceAggregator;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
@@ -62,7 +61,6 @@ public class ConnectorToTimeService {
                 .uri(subDomain)
                 .retrieve()
                 .bodyToMono(LocalDateTime.class)
-                //.timeout(Duration.ofSeconds(5))
                 .block();
         return result;
     }

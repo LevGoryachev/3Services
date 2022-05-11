@@ -11,13 +11,18 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
 import ru.goryachev.ui.model.Order;
+import ru.goryachev.ui.model.OrderDetail;
 import ru.goryachev.ui.service.ServiceAggregator;
 
-import java.time.Duration;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,12 +65,68 @@ public class ConnectorToOrderService {
     }
 
     public List<Order> getAll(String subDomain) {
-        List<Order> result = webClient().get()
+        List<Order> result = webClient()
+                .get()
                 .uri(subDomain)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<Order>>() {})
-                //.timeout(Duration.ofSeconds(5));
                 .block();
         return result;
     }
+
+    public Order findById(String subDomain, Long id) {
+        StringBuffer urlBuilder = new StringBuffer()
+                .append(subDomain)
+                .append(id);
+        String url = urlBuilder.toString();
+
+        Order result = webClient()
+                .get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(Order.class)
+                .block();
+        return result;
+    }
+
+    public Order update(String subDomain, Order order) {
+
+        Order result = webClient()
+                .put()
+                .uri(subDomain)
+                //.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(order), Order.class)
+                .retrieve()
+                .bodyToMono(Order.class)
+                .block();
+        return result;
+    }
+
+    public Order create(String subDomain, Order order) {
+
+        Order result = webClient()
+                .post()
+                .uri(subDomain)
+                .body(Mono.just(order), Order.class)
+                .retrieve()
+                .bodyToMono(Order.class)
+                .block();
+        return result;
+    }
+
+    public Order delete(String subDomain, Long id) {
+        StringBuffer urlBuilder = new StringBuffer()
+                .append(subDomain)
+                .append(id);
+        String url = urlBuilder.toString();
+
+        Order result = webClient()
+                .delete()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(Order.class)
+                .block();
+        return result;
+    }
+
 }

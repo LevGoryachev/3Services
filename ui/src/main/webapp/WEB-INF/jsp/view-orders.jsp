@@ -42,6 +42,12 @@
                         <div class="tabs">
                             <button onclick="toggleRow(${orders.id})">Показать/Скрыть</button>
                                 <div id=${orders.id} style="display:none;">
+
+                                    <table>
+                                        <form name = "Edit" action = "${pageContext.request.contextPath}/orders/edit/${orders.id}" method="get">
+                                            <td><input type="submit" value="Редактировать"></td>
+                                        </form>
+                                    </table>
                                     <table border="1" cellpadding="5" cellspacing="0">
                                         <thead>
                                         <tr>

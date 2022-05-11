@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 /**
  * Модель сущности "Заказ"
@@ -38,7 +39,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, fetch = FetchType.LAZY/*, orphanRemoval = true*/)
     @JsonManagedReference
-    private Set<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     public Long getId() {
         return id;
@@ -80,11 +81,11 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
+    public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 

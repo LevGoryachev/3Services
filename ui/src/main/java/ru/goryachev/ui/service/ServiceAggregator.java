@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import ru.goryachev.ui.exception.MicroServiceNotAnswerException;
+import ru.goryachev.ui.model.Order;
 import ru.goryachev.ui.webclient.ConnectorToOrderService;
 import ru.goryachev.ui.webclient.ConnectorToTimeService;
 
@@ -64,4 +65,37 @@ public class ServiceAggregator {
 
         return result;
     }
+
+    public Order findById (Long id) {
+        logger.info("connectorToTimeService.findById invocation");
+        return connectorToOrderService.findById(subDomainOrders, id);
+    }
+
+    public Order update (Order order){
+        logger.info("connectorToTimeService.update invocation");
+        Order x = order;
+        return connectorToOrderService.update(subDomainOrders, x);
+    }
+
+    /*public Object save(String subDomain, Map<String, Object> requestDto) {
+        StringBuffer urlBuilder = new StringBuffer()
+                .append(domainUrl)
+                .append(apiVersion)
+                .append(subDomain);
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity httpRequest = new HttpEntity(requestDto, headers);
+        ResponseEntity<Object> response = this.exchange(urlBuilder.toString(), HttpMethod.POST, httpRequest, Object.class);
+        return response.getBody();
+    }
+
+    public Object delete(String subDomain, Long id) {
+        StringBuffer urlBuilder = new StringBuffer()
+                .append(domainUrl)
+                .append(apiVersion)
+                .append(subDomain)
+                .append(id);
+        ResponseEntity<Object> response = this.exchange(urlBuilder.toString(), HttpMethod.DELETE, null, Object.class);
+        return response.getBody();
+    }*/
+
 }

@@ -5,13 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ru.goryachev.ui.model.Order;
 import ru.goryachev.ui.service.ServiceAggregator;
 
 /**
  * Веб-интерфейс Web-interface
- * Исключения отлавливаются при помощи exception/ControllerAdvisor (RestControllerAdvice)
+ * Exceptions отлавливаются при помощи exception/ControllerAdvisor (RestControllerAdvice)
  * @author Lev Goryachev
  * @version 1
  */
@@ -30,10 +30,35 @@ public class UiController {
 
     @GetMapping
     public String viewOrders(Model model) {
-        logger.info("UI Controller viewOrders() invocation (GET)");
+        logger.info("viewOrders() invocation (GET)");
         model.addAttribute("attributes", serviceAggregator.getAttributes());
-        /*model.addAttribute("orders", serviceAggregator.getOrders());
-        model.addAttribute("receivedTime", serviceAggregator.getDateTime());*/
         return "view-orders";
     }
+
+    @GetMapping("/edit/{orderId}")
+    public String editOrders(Model model, @PathVariable("orderId") Long orderId) {
+        logger.info("editOrders() invocation (GET) to go to edit-page");
+        model.addAttribute("order", serviceAggregator.findById(orderId));
+        return "edit-orders";
+    }
+
+    @RequestMapping(value = "/edit/update", method = RequestMethod.POST)
+    public String updateOrder (@ModelAttribute("order") Order order) {
+        Order x = order;
+        serviceAggregator.update(x);
+        return "redirect:/orders";
+    }
+
+    /*@RequestMapping(value = "/createorder")
+    public String createOrder () {
+        Order order = new Order();
+        order.setCustomerName("ExpCreatedCl");
+        order.setAddress("ExpCreatedAddr");
+        order.setSumm(BigDecimal.valueOf(1000));
+        Order x = order;
+        serviceAggregator.update(x);
+        return "redirect:/orders";
+    }*/
+
+
 }

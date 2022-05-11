@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * API работы с Заказами
- * Исключения отлавливаются при помощи exception/ControllerAdvisor (RestControllerAdvice)
+ * Exceptions отлавливаются при помощи exception/ControllerAdvisor (RestControllerAdvice)
  * @author Lev Goryachev
  * @version 1
  */
