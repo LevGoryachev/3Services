@@ -13,6 +13,7 @@ import ru.goryachev.ui.webclient.ConnectorToTimeService;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Сервис, который работает с API других сервисов Service that works with APIs
@@ -40,7 +41,7 @@ public class ServiceAggregator {
         this.connectorToTimeService = connectorToTimeService;
     }
 
-    public Map<String, Object> getAttributes (){
+    public Map<String, Object> getAttributes(){
 
         Map<String, Object> result = new HashMap<>();
 
@@ -62,40 +63,27 @@ public class ServiceAggregator {
                 e.printStackTrace();
             }
         }
-
         return result;
     }
 
-    public Order findById (Long id) {
+    public Order findById(Long id) {
         logger.info("connectorToTimeService.findById invocation");
         return connectorToOrderService.findById(subDomainOrders, id);
     }
 
-    public Order update (Order order){
-        logger.info("connectorToTimeService.update invocation");
-        Order x = order;
-        return connectorToOrderService.update(subDomainOrders, x);
+    public Order save(Order order){
+        logger.info("save invocation");
+        order.setOrderDetails(order.getOrderDetails().stream().filter(detail -> detail.getItemNumber() != null).collect(Collectors.toList()));
+        if(order.getId() == null){
+            logger.info("connectorToOrderService.create invocation");
+            return connectorToOrderService.create(subDomainOrders, order);
+        }
+        logger.info("connectorToOrderService.update invocation");
+        return connectorToOrderService.update(subDomainOrders, order);
     }
 
-    /*public Object save(String subDomain, Map<String, Object> requestDto) {
-        StringBuffer urlBuilder = new StringBuffer()
-                .append(domainUrl)
-                .append(apiVersion)
-                .append(subDomain);
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity httpRequest = new HttpEntity(requestDto, headers);
-        ResponseEntity<Object> response = this.exchange(urlBuilder.toString(), HttpMethod.POST, httpRequest, Object.class);
-        return response.getBody();
+    public Order delete(Long id) {
+        logger.info("connectorToOrderService.delete invocation");
+        return connectorToOrderService.delete(subDomainOrders, id);
     }
-
-    public Object delete(String subDomain, Long id) {
-        StringBuffer urlBuilder = new StringBuffer()
-                .append(domainUrl)
-                .append(apiVersion)
-                .append(subDomain)
-                .append(id);
-        ResponseEntity<Object> response = this.exchange(urlBuilder.toString(), HttpMethod.DELETE, null, Object.class);
-        return response.getBody();
-    }*/
-
 }

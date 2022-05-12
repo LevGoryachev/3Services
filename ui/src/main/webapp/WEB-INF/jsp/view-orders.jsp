@@ -17,6 +17,11 @@
             <h3>Receiving time (from TimeService): </h3>
             <h3>Время загрузки данных о заказах (из TimeService):</h3>
             <h2>${attributes.timeService.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}</h2>
+            <form name = "addOrder"
+                  method="GET"
+                  action = "${pageContext.request.contextPath}/orders/create">
+                <button type="submit">Добавить заказ</button>
+            </form>
         </div>
         <div class="cblock">
         <table>
@@ -42,12 +47,13 @@
                         <div class="tabs">
                             <button onclick="toggleRow(${orders.id})">Показать/Скрыть</button>
                                 <div id=${orders.id} style="display:none;">
-
-                                    <table>
-                                        <form name = "Edit" action = "${pageContext.request.contextPath}/orders/edit/${orders.id}" method="get">
-                                            <td><input type="submit" value="Редактировать"></td>
+                                    <div class="lbutton">
+                                        <form id = "editOrder"
+                                              method="GET"
+                                              action = "${pageContext.request.contextPath}/orders/edit/${orders.id}">
+                                            <button type="submit">Редактировать</button>
                                         </form>
-                                    </table>
+                                    </div>
                                     <table border="1" cellpadding="5" cellspacing="0">
                                         <thead>
                                         <tr>

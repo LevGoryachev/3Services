@@ -15,14 +15,13 @@
         <div class="cblock">
             <h2>Welcome to Order Service Web Interface</h2>
             <h2>Добро пожаловать в веб интерфейс сервиса заказов!</h2>
-            <h3>Receiving time (from TimeService): </h3>
-            <h3>Время загрузки данных о заказах (из TimeService):</h3>
-            <%--<h2>${attributes.timeService.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))}</h2>--%>
+            <h3>Edit page</h3>
+            <h3>Страница редактирования</h3>
         </div>
         <div class="cblock">
-            <form:form
+            <form:form id="orderForm"
                     method="POST"
-                    action="${pageContext.request.contextPath}/orders/edit/update" modelAttribute="order">
+                    action="${pageContext.request.contextPath}/orders/save" modelAttribute="order">
                 <table>
                     <thead>
                         <tr>
@@ -37,9 +36,9 @@
                     <tbody>
                         <tr>
                             <td><form:input path="id" readonly="true"/></td>
-                            <td><form:input path="customerName" /></td>
+                            <td><form:input path="customerName" pattern="^[^\s]*$" /></td>
                             <td><form:input path="address" /></td>
-                            <td><form:input path="summ"/></td>
+                            <td><form:input path="summ" pattern="^\\d+(\\.\\d{2})$"/></td>
                             <td><form:input path="createdDate" readonly="true"/></td>
                             <td style="min-width: 520px">
                                 <div class="tabs">
@@ -53,28 +52,42 @@
                                             <th>Действие</th>
                                         </tr>
                                         </thead>
+
                                         <c:forEach items="${order.orderDetails}" var="orderDetails" varStatus="counter">
                                             <tr>
-                                                <td><form:input path="orderDetails[${counter.index}].itemNumber" /></td>
-                                                <td><form:input path="orderDetails[${counter.index}].serialNumber" /></td>
+                                                <td><form:input path="orderDetails[${counter.index}].itemNumber" pattern="^[ 0-9]+$" /></td>
+                                                <td><form:input path="orderDetails[${counter.index}].serialNumber" pattern="^[^\s]*$" /></td>
                                                 <td><form:input path="orderDetails[${counter.index}].productName" /></td>
-                                                <td><form:input path="orderDetails[${counter.index}].qty" /></td>
-                                                <td><button onclick="removeLine(this)">Удалить</button></td>
+                                                <td><form:input path="orderDetails[${counter.index}].qty" pattern="^[ 0-9]+$" /></td>
+                                                <td><button type="button" onclick="removeLine(this)">Удалить</button></td>
                                             </tr>
                                         </c:forEach>
+
                                         <tr>
-                                            <td colspan="3"><button onclick="addLine()">+ Добавить позицию</button></td>
+                                            <td colspan="5"><button type="button" onclick="addLine()">+ Добавить позицию</button></td>
                                         </tr>
                                     </table>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td><input type="submit" value="Submit new"/></td>
-                        </tr>
                     </tbody>
                 </table>
             </form:form>
+            <div class="cbutton">
+                <button onclick="submitForm()">Сохранить</button>
+                <form:form id="orderDelete"
+                            method="DELETE"
+                            action="${pageContext.request.contextPath}/orders/edit/delete/${order.id}"
+                            onsubmit="return confirm('Удалить этот заказ?');">
+                    <button type="submit">Удалить заказ?</button>
+                </form:form>
+                <form:form id="goBack"
+                            method="GET"
+                            action="${pageContext.request.contextPath}/orders"
+                            onsubmit="return confirm('Вернуться без сохранения?');">
+                    <button type="submit">Отмена/назад</button>
+                </form:form>
+            </div>
         </div>
 </body>
 </html>

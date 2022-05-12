@@ -15,14 +15,9 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
 import ru.goryachev.ui.model.Order;
-import ru.goryachev.ui.model.OrderDetail;
 import ru.goryachev.ui.service.ServiceAggregator;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -128,5 +123,4 @@ public class ConnectorToOrderService {
                 .block();
         return result;
     }
-
 }

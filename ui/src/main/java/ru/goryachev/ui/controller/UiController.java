@@ -35,6 +35,13 @@ public class UiController {
         return "view-orders";
     }
 
+    @GetMapping("/create")
+    public String createOrders(Model model) {
+        logger.info("editOrders() invocation (GET) to go to edit-page");
+        model.addAttribute("order", new Order());
+        return "edit-orders";
+    }
+
     @GetMapping("/edit/{orderId}")
     public String editOrders(Model model, @PathVariable("orderId") Long orderId) {
         logger.info("editOrders() invocation (GET) to go to edit-page");
@@ -42,23 +49,15 @@ public class UiController {
         return "edit-orders";
     }
 
-    @RequestMapping(value = "/edit/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String updateOrder (@ModelAttribute("order") Order order) {
-        Order x = order;
-        serviceAggregator.update(x);
+        serviceAggregator.save(order);
         return "redirect:/orders";
     }
 
-    /*@RequestMapping(value = "/createorder")
-    public String createOrder () {
-        Order order = new Order();
-        order.setCustomerName("ExpCreatedCl");
-        order.setAddress("ExpCreatedAddr");
-        order.setSumm(BigDecimal.valueOf(1000));
-        Order x = order;
-        serviceAggregator.update(x);
+    @RequestMapping(value = "/edit/delete/{orderId}", method = RequestMethod.POST)
+    public String updateOrder (@PathVariable("orderId") Long orderId) {
+        serviceAggregator.delete(orderId);
         return "redirect:/orders";
-    }*/
-
-
+    }
 }

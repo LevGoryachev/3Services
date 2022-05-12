@@ -7,6 +7,19 @@ a {
     text-align: center;
 }
 
+.cbutton{
+
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lbutton{
+    display:inline-block;
+    float: left;
+}
+
 h2{
     color: darkgreen;
 }
